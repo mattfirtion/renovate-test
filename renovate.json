@@ -5,7 +5,8 @@
       ":pinDependencies",
       ":pinDevDependencies",
       "security:openssf-scorecard",
-      "group:definitelyTyped"
+      "group:definitelyTyped",
+      "helpers:disableTypesNodeMajor"
     ],
     "reviewers": ["merlinorg", "mattfirtion"],
     "packageRules": [
@@ -18,13 +19,15 @@
         "description": "Group Boto Python packages together.",
         "matchDatasources": ["pypi"],
         "matchPackageNames": ["boto3", "botocore"],
-        "schedule": ["before 4am on the first day of the month"]
+        "schedule": ["before 4am on the first day of the month"],
+        "prConcurrentLimit": 5
       },
       {
         "description": "Update AWS SDK, AWS SDK v3, and AWS CDK packages monthly.",
         "matchDatasources": ["npm"],
         "matchPackagePatterns": ["^@aws-sdk/", "^aws-cdk$"],
-        "schedule": ["before 4am on the first day of the month"]
+        "schedule": ["before 4am on the first day of the month"],
+        "prConcurrentLimit": 5
       },
       {
         "description": "Run minor and patch updates twice a week for all npm packages except AWS ones.",
@@ -32,6 +35,7 @@
         "excludePackagePatterns": ["^@aws-sdk/", "^aws-cdk$"],
         "schedule": ["before 4am on tuesday", "before 4am on thursday"],
         "updateTypes": ["minor", "patch"],
+        "commitMessageSuffix": "({{updateType}})",
         "prConcurrentLimit": 5
       },
       {
@@ -40,17 +44,24 @@
         "excludePackagePatterns": ["^@aws-sdk/", "^aws-cdk$"],
         "schedule": ["before 4am on monday"],
         "updateTypes": ["major"],
-        "prConcurrentLimit": 5
+        "commitMessageSuffix": "({{updateType}})",
+        "prConcurrentLimit": 5,
+        "dependencyDashboardApproval": true
       },
       {
         "packageNames": ["prettier"],
-        "prHeader": "### ⚠️ WARNING: This PR updates Prettier ⚠️\n\n**Important**\n\n**Do not squash the commits when merging. Ensure the commits remain separate to maintain clear history and make it easier to manage `.git-blame-ignore-revs` updates.**\n\nPrettier has been updated to version `{{newVersion}}` and applied to the codebase. Please follow these steps to review and manage the formatting changes:\n\n1. **Checkout the branch**: `git checkout {{branchName}}`\n2. **Run Prettier**: `npx prettier --write .`\n3. **Review changes**: Verify that all formatting changes are as expected.\n4. **Commit the changes**:\n   - Commit the formatting changes with the following message:\n     ```plaintext\n     chore: apply Prettier {{newVersion}}\n     ```\n5. **Find the commit hash**:\n   - After committing the changes, find the hash of the commit where Prettier was applied. You can use `git log` to locate this hash.\n6. **Update the `.git-blame-ignore-revs` file**:\n   - Add the following line to the `.git-blame-ignore-revs` file with the commit hash you found:\n     ```plaintext\n     # prettier {{newVersion}}\n     <commit-hash>\n     ```\n   - Replace `<commit-hash>` with the actual hash of the commit from step 5, on a new line.\n7. **Commit the modified `.git-blame-ignore-revs` file**:\n   - Commit the updated `.git-blame-ignore-revs` file with a message like:\n     ```plaintext\n     chore: update .git-blame-ignore-revs for Prettier {{newVersion}}\n     ```\n8. **Push changes**:\n   - Push the committed changes to the remote repository:\n     ```bash\n     git push origin {{branchName}}\n     ```\n\nPlease ensure that the formatting changes are correct before merging."
+        "prHeader": "### ⚠️ WARNING: This PR updates Prettier ⚠️\n\nPrettier has been updated and applied to the codebase. Please follow these steps to review and manage the formatting changes:\n\n**Do not squash the commits when merging. Ensure the commits remain separate to maintain clear history and make it easier to manage .git-blame-ignore-revs updates.**\n\n1. **Checkout the branch**: `git checkout {{branchName}}`\n2. **Run Prettier**: `npx prettier --write .`\n3. **Review changes**: Verify that all formatting changes are as expected.\n4. **Commit the changes**:\n   - Commit the formatting changes with the following message:\n     ```plaintext\n     chore: apply Prettier {{newVersion}}\n     ```\n5. **Find the commit hash**:\n   - After committing the changes, find the hash of the commit where Prettier was applied. You can use `git log` to locate this hash.\n6. **Update the `.git-blame-ignore-revs` file**:\n   - Add the following line to the `.git-blame-ignore-revs` file with the commit hash you found:\n     ```plaintext\n     # prettier {{newVersion}}\n     <commit-hash>\n     ```\n   - Replace `<commit-hash>` with the actual hash of the commit from step 5, on a new line.\n7. **Commit the modified `.git-blame-ignore-revs` file**:\n   - Commit the updated `.git-blame-ignore-revs` file with a message like:\n     ```plaintext\n     chore: update .git-blame-ignore-revs for Prettier {{newVersion}}\n     ```\n8. **Push changes**:\n   - Push the committed changes to the remote repository:\n     ```bash\n     git push origin {{branchName}}\n     ```\n\nPlease ensure that the formatting changes are correct before merging.",
+        "prConcurrentLimit": 5
+      },
+      {
+        "description": "Run weekly updates for all other datasources.",
+        "matchDatasources": ["docker", "github-releases", "gitlab-releases", "maven"],
+        "schedule": ["before 4am on monday"],
       }
     ],
     "ignorePaths": ["scarre/**/*"],
     "labels": ["dependencies"],
     "timezone": "America/New_York",
-    "prConcurrentLimit": 25,
-    "prHourlyLimit": 0
+    "prConcurrentLimit": 25
   }
   
