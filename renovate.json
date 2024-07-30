@@ -57,11 +57,7 @@
         "description": "Run weekly updates for all other datasources.",
         "matchDatasources": [
           "!npm",
-          "!orb",
-          "!pypi",
-          "!gitea-tags",
-          "!github-tags",
-          "!github-runners"
+          "!pypi"
         ],
         "schedule": ["before 4am on monday"]
       }
