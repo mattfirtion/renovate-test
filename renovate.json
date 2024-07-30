@@ -56,10 +56,12 @@
       {
         "description": "Run weekly updates for all other datasources.",
         "matchDatasources": [
-          "docker",
-          "github-releases",
-          "gitlab-releases",
-          "maven"
+          "!npm",
+          "!orb",
+          "!pypi",
+          "!gitea-tags",
+          "!github-tags",
+          "!github-runners"
         ],
         "schedule": ["before 4am on monday"]
       }
