@@ -55,9 +55,14 @@
       },
       {
         "description": "Run weekly updates for all other datasources.",
-        "matchDatasources": [
-          "!npm",
-          "!pypi"
+        "matchManagers": [
+          "ansible-galaxy",
+          "circleci",
+          "docker-compose",
+          "dockerfile",
+          "github-actions",
+          "nvm",
+          "pip_requirements"
         ],
         "schedule": ["before 4am on monday"]
       }
