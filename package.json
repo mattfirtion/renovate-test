@@ -30,7 +30,7 @@
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.19",
     "mongoose": "5.10.0",
-    "prettier": "3.2.1",
+    "prettier": "3.3.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "7.2.0",
