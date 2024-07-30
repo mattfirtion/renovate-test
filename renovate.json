@@ -6,7 +6,8 @@
       ":pinDevDependencies",
       "security:openssf-scorecard",
       "group:definitelyTyped",
-      "helpers:disableTypesNodeMajor"
+      "helpers:disableTypesNodeMajor",
+      ":dependencyDashboard"
     ],
     "reviewers": ["merlinorg", "mattfirtion"],
     "packageRules": [
