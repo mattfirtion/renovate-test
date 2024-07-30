@@ -49,6 +49,7 @@
     "ignorePaths": ["scarre/**/*"],
     "labels": ["dependencies"],
     "timezone": "America/New_York",
-    "prConcurrentLimit": 35
+    "prConcurrentLimit": 35,
+    "prHourlyLimit": 0
   }
   
