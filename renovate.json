@@ -5,52 +5,37 @@
       ":pinDependencies",
       ":pinDevDependencies",
       "security:openssf-scorecard",
-      "group:definitelyTyped"
+      "group:definitelyTyped",
+      "helpers:disableTypesNodeMajor"
     ],
     "reviewers": ["merlinorg", "mattfirtion"],
     "packageRules": [
       {
         "matchDepTypes": ["devDependencies"],
-        "matchPackagePatterns": ["^@types/.+$"],
-        "separateMinorPatch": true,
-        "separateMultipleMajor": true
+        "matchPackagePatterns": ["^@types/.+$"]
       },
       {
-        "description": "Group Boto Python packages together.",
-        "groupName": "Boto",
-        "groupSlug": "boto-python",
         "matchDatasources": ["pypi"],
-        "matchPackageNames": ["boto3", "botocore"],
-        "separateMinorPatch": true,
-        "separateMultipleMajor": true
+        "matchPackageNames": ["boto3", "botocore"]
       },
       {
-        "description": "Update AWS SDK, AWS SDK v3, and AWS CDK packages monthly.",
-        "groupName": "AWS Packages",
-        "groupSlug": "aws-packages",
         "matchDatasources": ["npm"],
-        "matchPackagePatterns": ["^@aws-sdk/", "^aws-cdk$"],
-        "separateMinorPatch": true,
-        "separateMultipleMajor": true
+        "matchPackagePatterns": ["^@aws-sdk/", "^aws-cdk$"]
       },
       {
         "description": "Run minor and patch updates twice a week for all npm packages except AWS ones.",
-        "groupName": "All npm packages except AWS",
         "matchDatasources": ["npm"],
         "excludePackagePatterns": ["^@aws-sdk/", "^aws-cdk$"],
         "updateTypes": ["minor", "patch"],
-        "separateMinorPatch": true,
-        "separateMultipleMajor": true,
+        "commitMessageSuffix": "({{updateType}})",
         "prConcurrentLimit": 10
       },
       {
         "description": "Run major updates once a week for all npm packages except AWS ones.",
-        "groupName": "Major npm updates except AWS",
         "matchDatasources": ["npm"],
         "excludePackagePatterns": ["^@aws-sdk/", "^aws-cdk$"],
         "updateTypes": ["major"],
-        "separateMinorPatch": true,
-        "separateMultipleMajor": true,
+        "commitMessageSuffix": "({{updateType}})",
         "prConcurrentLimit": 5
       },
       {
